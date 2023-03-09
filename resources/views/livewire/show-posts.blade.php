@@ -7,15 +7,17 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <x-table>
-            <div class="px-6 py-4">
-                <x-input class="w-full" placeholder="Inserte parámetros de busqueda." type="text" wire:model="search" />
+            <div class="px-6 py-4 flex items-center">
+                <x-input class="flex-1" placeholder="Inserte parámetros de busqueda." type="text" wire:model="search" />
+
+                @livewire('create-post')
             </div>
 
             @if ($posts->count())
                 <table class="w-full min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="cursor-pointer px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('id')">
+                            <th scope="col" class="cursor-pointer py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('id')">
                                 ID
                                 @if ($sort == 'id')
                                     @if ($direction == 'asc')
@@ -27,7 +29,7 @@
                                     <i class="fas fa-sort mt-1"></i>
                                 @endif
                             </th>
-                            <th scope="col" class="cursor-pointer px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('title')">
+                            <th scope="col" class="cursor-pointer py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('title')">
                                 Title
                                 @if ($sort == 'title')
                                     @if ($direction == 'asc')
@@ -39,7 +41,7 @@
                                     <i class="fas fa-sort mt-1"></i>
                                 @endif                            
                             </th>
-                            <th scope="col" class="cursor-pointer px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('content')">
+                            <th scope="col" class="cursor-pointer py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b-2" wire:click="order('content')">
                                 Content
                                 @if ($sort == 'content')
                                     @if ($direction == 'asc')

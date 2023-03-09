@@ -13,6 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- Sweat Alert --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
         <!-- Styles -->
         @livewireStyles
@@ -43,6 +46,16 @@
         @livewireScripts
     
         <script src="https://kit.fontawesome.com/8c4fa2aded.js" crossorigin="anonymous"></script>
+
+        <script>
+            Livewire.on('alert', function(message) {
+                Swal.fire(
+                    'Good job!',
+                    message,
+                    'success'   
+                )
+            })
+        </script>
         
     </body>
 </html>
