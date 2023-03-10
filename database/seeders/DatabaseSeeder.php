@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // Crea la carpeta 'posts' dentro del disco público si no existe
+        if (!Storage::disk('public')->exists('posts')) {
+            Storage::disk('public')->makeDirectory('posts');
+            chmod(storage_path('storage/app/public/posts'), 777, true);
+        }
+        
         Post::factory(100)->create();
     }
 }
