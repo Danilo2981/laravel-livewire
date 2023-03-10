@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // Crea la carpeta 'posts' dentro del disco público si no existe
         if (!Storage::disk('public')->exists('posts')) {
             Storage::disk('public')->makeDirectory('posts');
-            chmod(storage_path('storage/app/public/posts'), 777, true);
+            chmod(storage_path('app/public/posts'), 777);
         }
         
         Post::factory(100)->create();

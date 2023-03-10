@@ -70,8 +70,8 @@
                                 <td class="px-6 py-4 border-b-2">
                                     <div class="text-sm text-gray-500">{{ $post->content }}</div>
                                 </td>
-                                <td class="px-6 py-4 text-right text-sm font-medium border-b-2">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <td class="px-6 py-4 text-sm font-medium border-b-2">
+                                    @livewire('edit-post', ['post' => $post], key($post->id))
                                 </td>
                             </tr>   
                         @endforeach                 
