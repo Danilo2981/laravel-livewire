@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -27,9 +28,19 @@ class EditPost extends Component
     public function save(){
         
         $this->validate();
+
+        // Eliminar la imagen guardada para almacenar la nueva
+        if ($this->image) {
+            Storage::delete([$this->post->image]);
+
+            // Codigo que remplaza la nueva imagen
+            $this->post->image = $this->image->store('posts');
+        }
+
         $this->post->save();
 
-        $this->reset(['open']);
+        $this->reset(['open', 'image']);
+        $this->identificador = rand();
         $this->emitTo('show-posts','render');
         $this->emit('alert', 'El post se actualizó satisfactoriamente');
     }
