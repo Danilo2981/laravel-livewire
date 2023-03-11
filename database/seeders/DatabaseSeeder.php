@@ -24,9 +24,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Storage::deleteDirectory('public/posts');
+        Storage::deleteDirectory('storage');
+        Storage::deleteDirectory('app');
+        Storage::deleteDirectory('public');
+        Storage::deleteDirectory('posts');
         
-        Storage::makeDirectory('public/posts');
-        chmod(storage_path('app/public/posts'), 0777);
+        Storage::makeDirectory('posts');
+        chmod(storage_path('app/posts'), 0777);
 
  
         Post::factory(100)->create();

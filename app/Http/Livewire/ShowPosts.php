@@ -4,12 +4,29 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 
 class ShowPosts extends Component
 {
-    public $search;
+    use WithFileUploads;
+
+    public $search, $post, $image, $identificador;
     public $sort = 'id';
     public $direction = 'desc';
+
+    public $open_edit = false;
+
+    public function mount(){
+        $this->identificador = rand();
+        // inicializa la propiedad de post como imagen
+        $this->post = new Post();
+    }
+
+    protected $rules = [
+        'post.title' => 'required',
+        'post.content' => 'required',
+    ];
 
     protected $listeners = ['render'];
 
@@ -36,5 +53,28 @@ class ShowPosts extends Component
             $this->direction = 'asc';
         }
         
+    }
+
+    public function edit(Post $post) {
+        $this->post = $post;
+        $this->open_edit = true;
+    }
+
+    public function update() {
+        $this->validate();
+
+        // Eliminar la imagen guardada para almacenar la nueva
+        if ($this->image) {
+            Storage::delete([$this->post->image]);
+
+            // Codigo que remplaza la nueva imagen
+            $this->post->image = $this->image->store('posts');
+        }
+
+        $this->post->save();
+
+        $this->reset(['open_edit', 'image']);
+        $this->identificador = rand();
+        $this->emit('alert', 'El post se actualizó satisfactoriamente');
     }
 }
