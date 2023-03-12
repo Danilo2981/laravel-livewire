@@ -68,7 +68,7 @@ class ShowPosts extends Component
             Storage::delete([$this->post->image]);
 
             // Codigo que remplaza la nueva imagen
-            $this->post->image = $this->image->store('posts');
+            $this->post->image = $this->image->store('public/posts');
         }
 
         $this->post->save();

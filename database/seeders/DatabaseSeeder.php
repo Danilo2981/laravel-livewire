@@ -23,15 +23,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Storage::deleteDirectory('public/posts');
-        Storage::deleteDirectory('storage');
-        Storage::deleteDirectory('app');
-        Storage::deleteDirectory('public');
+        chmod(public_path('/'), 0777);
+
         Storage::deleteDirectory('posts');
         
-        Storage::makeDirectory('posts');
-        chmod(storage_path('app/posts'), 0777);
-
+        Storage::makeDirectory('public/posts');
+        
  
         Post::factory(100)->create();
     }
