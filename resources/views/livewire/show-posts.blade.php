@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPosts">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -25,7 +25,7 @@
                 @livewire('create-post')
             </div>
 
-            @if ($posts->count())
+            @if (count($posts))
                 <table class="w-full min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -82,25 +82,32 @@
                                 <td class="px-6 py-4 border-b-2">
                                     <div class="text-sm text-gray-500">{{ $item->content }}</div>
                                 </td>
-                                <td class="px-6 py-4 text-sm font-medium border-b-2">
+                                <td class="px-6 py-4 text-sm font-medium border-b-2 flex">
                                     {{-- @livewire('edit-post', ['post' => $post], key($post->id)) --}}
                                     <a class="btn btn-green" wire:click="edit({{ $item }})">
                                         <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-red ml-2">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>   
                         @endforeach                 
                     </tbody>
                 </table>
-            @else
-                <div class="px-6 py-4">No existen parámetros para la busqueda.</div>
-            @endif   
-            
-            @if ($posts->hasPages())
+
+                @if ($posts->hasPages())
                 <div class="px-6 py-3">
                     {{ $posts->links() }}
                 </div>                
-            @endif
+                @endif
+
+            @else
+                <div class="px-6 py-4">No existen registros almacenados.</div>
+            @endif   
+            
+            
         </x-table>                    
     </div>
     

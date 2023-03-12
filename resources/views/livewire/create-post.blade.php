@@ -22,13 +22,14 @@
 
             <div class="mb-4">
                 <x-label value="Título del Post" />
-                <x-input type="text" class="w-full" wire:model.defer="title" />
+                <x-input type="text" class="w-full" wire:model="title" />
 
                 <x-input-error for="title" />
             </div>
-            <div class="mb-4">
+            {{ $content }}
+            <div class="mb-4" wire:ignore>
                 <x-label value="Contenido del Post" />
-                <x-text-area rows="6" class="w-full" wire:model.defer="content" />
+                <x-text-area id="editor" rows="6" class="w-full" wire:model="content" />
 
                 <x-input-error for="content" />
             </div>
@@ -48,4 +49,21 @@
         </x-slot>
 
     </x-dialog-modal>
+
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .then(function(editor){
+                    editor.model.document.on('change:data', () => {
+                        @this.set('content', editor.getData());
+                    })
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>
+    @endpush
 </div>

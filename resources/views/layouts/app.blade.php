@@ -11,14 +11,16 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Styles -->
+        @livewireStyles
+
+        @stack('css')
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         {{-- Sweat Alert --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-        <!-- Styles -->
-        @livewireStyles
+ 
     </head>
     <body class="font-sans antialiased">
         <x-banner />
@@ -44,6 +46,8 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('js')
     
         <script src="https://kit.fontawesome.com/8c4fa2aded.js" crossorigin="anonymous"></script>
 
