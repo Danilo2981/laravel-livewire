@@ -6,16 +6,27 @@ use App\Models\Post;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class ShowPosts extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
-    public $search, $post, $image, $identificador;
+    public $post, $image, $identificador;
+    public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
+    public $cant = '10';
 
     public $open_edit = false;
+
+    protected $queryString = [
+        'cant' => ['except' => '10'], 
+        'sort' => ['except' => 'id'], 
+        'direction' => ['except' => 'desc'], 
+        'search' => ['except' => '']
+    ];
 
     public function mount(){
         $this->identificador = rand();
@@ -28,6 +39,10 @@ class ShowPosts extends Component
         'post.content' => 'required',
     ];
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
     protected $listeners = ['render'];
 
     public function render()
@@ -35,7 +50,7 @@ class ShowPosts extends Component
         $posts = Post::where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('content', 'like', '%' . $this->search . '%')
                     ->orderBy($this->sort, $this->direction)
-                    ->get();
+                    ->paginate($this->cant);
 
         return view('livewire.show-posts', compact('posts'));
     }

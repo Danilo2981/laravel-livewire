@@ -8,7 +8,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <x-table>
             <div class="px-6 py-4 flex items-center">
-                <x-input class="flex-1" placeholder="Inserte parámetros de busqueda." type="text" wire:model="search" />
+
+                <div class="flex items-center">
+                    <span>Mostrar:</span>
+                    <select wire:model="cant" class="mx-2 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>entradas</span>
+                </div>
+
+                <x-input class="flex-1 mx-4" placeholder="Inserte parámetros de busqueda." type="text" wire:model="search" />
 
                 @livewire('create-post')
             </div>
@@ -82,7 +94,13 @@
                 </table>
             @else
                 <div class="px-6 py-4">No existen parámetros para la busqueda.</div>
-            @endif    
+            @endif   
+            
+            @if ($posts->hasPages())
+                <div class="px-6 py-3">
+                    {{ $posts->links() }}
+                </div>                
+            @endif
         </x-table>                    
     </div>
     
