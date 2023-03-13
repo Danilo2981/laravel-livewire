@@ -80,7 +80,7 @@
                                     <div class="text-sm text-gray-500">{{ $item->title }}</div>
                                 </td>
                                 <td class="px-6 py-4 border-b-2">
-                                    <div class="text-sm text-gray-500">{{ $item->content }}</div>
+                                    <div class="text-sm text-gray-500">{!! $item->content !!}</div>
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium border-b-2 flex">
                                     {{-- @livewire('edit-post', ['post' => $post], key($post->id)) --}}
@@ -125,7 +125,7 @@
             {{-- Con else accede a la imagen guardada --}}
             @if ($image)
                 <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="">
-            @else
+            @elseif($post->image)
                 <img class="mb-4" src="{{ Storage::url($post->image) }}" alt="">
             @endif
 

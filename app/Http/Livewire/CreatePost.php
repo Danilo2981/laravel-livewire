@@ -55,4 +55,13 @@ class CreatePost extends Component
         return view('livewire.create-post');
     }
 
+    // Funcion para que cuando se de click fuera del modal se borre la info al volverlo a abrir
+    public function updatingOpen() {
+        if ($this->open == false) {
+            $this->reset(['content', 'title', 'image']);
+            $this->identificador = rand();
+            $this->emit('resetCKEditor');
+        }
+    }
+
 }

@@ -26,11 +26,13 @@
 
                 <x-input-error for="title" />
             </div>
-            {{ $content }}
-            <div class="mb-4" wire:ignore>
+            {{-- {{ $content }} --}}
+            <div class="mb-4">
                 <x-label value="Contenido del Post" />
-                <x-text-area id="editor" rows="6" class="w-full" wire:model="content" />
-
+                <div wire:ignore>
+                    <x-text-area id="editor" rows="6" class="w-full" wire:model="content" />
+                </div>
+                
                 <x-input-error for="content" />
             </div>
             <div>
@@ -59,7 +61,10 @@
                 .then(function(editor){
                     editor.model.document.on('change:data', () => {
                         @this.set('content', editor.getData());
-                    })
+                    });
+                    Livewire.on('resetCKEditor', ()=>{
+                        editor.setData('');
+                    });
                 })
                 .catch( error => {
                     console.error( error );
