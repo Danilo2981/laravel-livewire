@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => bcrypt('12345678'),
+        ]);
 
-        chmod(public_path('/'), 0777);
+        // chmod(public_path('/'), 0777);
 
         Storage::deleteDirectory('posts');
         
